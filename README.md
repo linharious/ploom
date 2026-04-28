@@ -1,68 +1,46 @@
-# SmartFlow AI - Intelligent Collaborative Workspace
+# Ploom - Smart Collaborative Workspace
 
-SmartFlow AI is a high-performance Full-Stack application designed for team collaboration, featuring real-time synchronization and AI-driven automation. This project is built as part of the **Trends in Technology W2026** course.
+Ploom is a full-stack collaborative platform designed to streamline team workflows through real-time synchronization and AI-driven automation. This project demonstrates a robust integration of modern web technologies, secure authentication, and scalable cloud deployment.
 
 ## 🚀 Tech Stack
 
-- **Frontend:** React.js / Next.js (Modern Frontend Framework)
+- **Frontend:** React.js / Next.js
 - **Backend:** Node.js & Express.js
-- **Database:** MongoDB (NoSQL)
+- **Database:** MongoDB
 - **Real-time:** Socket.io (WebSockets)
-- **Security:** JWT (JSON Web Tokens) & Bcrypt (Password Hashing)
-- **Deployment:** Hosted on **Render** (Web Service & Static Site)
+- **Security:** JSON Web Tokens (JWT) & Bcrypt hashing
+- **Deployment:** Render
 
 ---
 
-## 👥 Team Responsibilities (Full-Stack Division)
+## ✨ Key Features
 
-Both members act as Full-Stack Developers, managing their assigned features from the Database layer to the User Interface.
+### 1. Secure Authentication
 
-### 👤 Person 1: Identity & Workspace Infrastructure
+- User Registration and Login system.
+- Secure password storage using Bcrypt hashing.
+- Protected API routes using JWT middleware to ensure data privacy.
 
-_Focus: Secure access, core organizational data, and real-time synchronization._
+### 2. Workspace & Task Management (Full CRUD)
 
-- **Authentication System:** Implement secure Signup and Login using **JWT** and **Bcrypt** hashing.
-- **Workspace Module (CRUD 1):** Develop the full CRUD logic for Workspaces (Create, Read, Update, Delete).
-- **Real-time Engine:** Set up the **Socket.io** server to broadcast live updates when workspaces are modified.
-- **Middleware & Security:** Create protected routes to ensure only authenticated users can access workspace data.
-- **Deployment:** Manage the deployment of the Web Service (API) and Database connection on **Render**.
+- **Workspaces:** Create, read, update, and delete collaborative environments.
+- **Tasks:** Full CRUD operations for individual tasks, including status tracking and descriptions.
+- **Data Integrity:** Implementation of 3 distinct data models (User, Workspace, Task).
 
-### 👤 Person 2: Task Intelligence & Analytics
+### 3. Real-time Collaboration
 
-_Focus: AI-driven workflows, task management, and data visualization._
+- Instant data synchronization across all connected clients.
+- Implementation of multiple WebSocket events for live updates such as task movements and status changes.
 
-- **Task Management (CRUD 2):** Develop the full CRUD logic for Tasks within workspaces, including status and priority tracking.
-- **AI Integration:** Connect with OpenAI/Gemini API to automate task generation and sub-task breakdown from natural language descriptions.
-- **WebSocket Notifications:** Implement real-time notification events (e.g., `notification:new`) when tasks are created or assigned.
-- **Data Dashboard:** Build a visual interface to track project progress using charts and analytics (Recharts/Chart.js).
-- **Documentation:** Manage the repository structure and technical README documentation.
+### 4. AI-Powered Automation
 
----
-
-## 📅 Development Roadmap
-
-### Phase 1: Architecture & Auth (Week 1-2)
-
-- Collaborative design of MongoDB Schemas (User, Workspace, Task).
-- **Person 1:** Setup Express server, JWT Authentication, and Signup/Login routes.
-- **Person 2:** Setup React/Next.js environment and design the Dashboard layout.
-
-### Phase 2: Feature Development (Week 3-4)
-
-- **Person 1:** Build Workspace CRUD and initialize Socket.io event broadcasting.
-- **Person 2:** Build Task CRUD and integrate the AI API for "Smart Task Generation."
-
-### Phase 3: Integration & Deployment (Week 5)
-
-- Finalize WebSocket event handling for real-time collaborative updates.
-- **Deployment:** Deploy the Backend (Web Service) and Frontend (Static Site) to **Render**.
-- **Final Polish:** Ensure all passwords are hashed and all routes are protected.
+- Integrated AI assistant to automatically generate task lists from natural language descriptions.
+- Intelligent project summarization to track team progress efficiently.
 
 ---
 
-## 🛠 Setup & Installation
+## 🛠 Installation & Setup
 
-1. **Clone the repository:**
-   ```bash
-   git clone [https://github.com/yourusername/smartflow-ai.git](https://github.com/yourusername/smartflow-ai.git)
-   ```
+Follow these steps to run Ploom in your local environment:
+
+... to be continued ...
