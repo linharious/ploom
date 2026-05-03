@@ -102,3 +102,37 @@ exports.remove = async (req, res) => {
     res.status(500).json({ message: 'Server error', error: err.message });
   }
 };
+
+exports.addMember = async (req, res) => {
+  try {
+    const { email } = req.body;
+    const workspace = await Workspace.findById(req.params.id);
+    
+    if (!workspace) return res.status(404).json({ message: 'Workspace not found' });
+    if (!workspace.owner.equals(req.user._id)) {
+      return res.status(403).json({ message: 'Only the owner can add members' });
+    }
+
+    const userToAdd = await require('../models/User').findOne({ email: email.toLowerCase() });
+    if (!userToAdd) return res.status(404).json({ message: 'User not found' });
+
+    if (workspace.members.includes(userToAdd._id)) {
+      return res.status(400).json({ message: 'User is already a member' });
+    }
+
+    workspace.members.push(userToAdd._id);
+    await workspace.save();
+
+    const populated = await workspace.populate([
+      { path: 'owner', select: 'name email' },
+      { path: 'members', select: 'name email' },
+    ]);
+
+    req.app.get('io').to(req.params.id).emit('workspace:updated', populated);
+    
+    res.json(populated);
+  } catch (err) {
+    res.status(500).json({ message: 'Server error', error: err.message });
+  }
+};
+

@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import Navbar from '../../components/Navbar';
 import TaskModal from '../../components/TaskModal';
 import AIGenerateModal from '../../components/AIGenerateModal';
+import MemberModal from '../../components/MemberModal';
 import Analytics from '../../components/Analytics';
 import api from '../../lib/api';
 import { connectSocket, disconnectSocket } from '../../lib/socket';
@@ -18,6 +19,7 @@ export default function WorkspaceDetail() {
   
   const [modalOpen, setModalOpen] = useState(false);
   const [aiModalOpen, setAiModalOpen] = useState(false);
+  const [memberModalOpen, setMemberModalOpen] = useState(false);
   const [editTarget, setEditTarget] = useState(null);
   const [notification, setNotification] = useState(null);
   const [connected, setConnected] = useState(false);
@@ -75,6 +77,10 @@ export default function WorkspaceDetail() {
       setTasks((prev) => prev.filter((t) => t._id !== _id));
     });
 
+    socket.on('workspace:updated', (ws) => {
+      if (ws._id === id) setWorkspace(ws);
+    });
+
     socket.on('notification', (data) => {
       setNotification(data.message);
       setTimeout(() => setNotification(null), 4000);
@@ -85,6 +91,7 @@ export default function WorkspaceDetail() {
       socket.off('task:created');
       socket.off('task:updated');
       socket.off('task:deleted');
+      socket.off('workspace:updated');
       socket.off('notification');
       disconnectSocket();
     };
@@ -118,6 +125,12 @@ export default function WorkspaceDetail() {
     }
   };
 
+  const handleAddMember = async (email) => {
+    const { data } = await api.post(`/api/workspaces/${id}/members`, { email });
+    setWorkspace(data);
+    setNotification('Member added successfully!');
+  };
+
   const openCreate = () => { setEditTarget(null); setModalOpen(true); };
   const openEdit = (task) => { setEditTarget(task); setModalOpen(true); };
 
@@ -126,6 +139,7 @@ export default function WorkspaceDetail() {
   }
 
   const columns = ['To Do', 'In Progress', 'Done'];
+  const isOwner = workspace.owner?._id === user?._id || workspace.owner === user?._id;
 
   return (
     <>
@@ -137,10 +151,17 @@ export default function WorkspaceDetail() {
             <p className={styles.subtitle}>
               {workspace.description}
               {workspace.description && ' · '}
-              {connected ? 'Live Sync Active' : 'Offline'}
+              {workspace.members?.length || 0} member{workspace.members?.length !== 1 ? 's' : ''}
+              {' · '}
+              {connected ? 'Live' : 'Offline'}
             </p>
           </div>
           <div style={{ display: 'flex', gap: '1rem' }}>
+            {isOwner && (
+              <button className="btn-ghost" onClick={() => setMemberModalOpen(true)}>
+                + Invite
+              </button>
+            )}
             <button className="btn-secondary" onClick={() => setAiModalOpen(true)} style={{ background: 'linear-gradient(90deg, #a855f7, #ec4899)', color: 'white', border: 'none' }}>
               ✨ Generate with AI
             </button>
@@ -195,6 +216,13 @@ export default function WorkspaceDetail() {
         <AIGenerateModal
           onClose={() => setAiModalOpen(false)}
           onGenerate={handleAIGenerate}
+        />
+      )}
+
+      {memberModalOpen && (
+        <MemberModal
+          onClose={() => setMemberModalOpen(false)}
+          onAdd={handleAddMember}
         />
       )}
 

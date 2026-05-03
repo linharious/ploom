@@ -19,5 +19,6 @@ router.get('/:id', getOne);
 router.post('/', create);
 router.put('/:id', update);
 router.delete('/:id', remove);
+router.post('/:id/members', require('../controllers/workspaceController').addMember);
 
 module.exports = router;
