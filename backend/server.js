@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 
 const authRoutes = require('./routes/auth');
 const workspaceRoutes = require('./routes/workspaces');
+const aiRoutes = require('./routes/ai');
 
 const app = express();
 const httpServer = http.createServer(app);
@@ -14,7 +15,7 @@ const httpServer = http.createServer(app);
 const io = new Server(httpServer, {
   cors: {
     origin: process.env.CLIENT_URL || 'http://localhost:3000',
-    methods: ['GET', 'POST'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
   },
 });
 
@@ -27,6 +28,7 @@ app.set('io', io);
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/workspaces', workspaceRoutes);
+app.use('/api/ai', aiRoutes);
 
 app.get('/api/health', (_req, res) => res.json({ status: 'ok' }));
 

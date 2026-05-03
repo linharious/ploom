@@ -8,7 +8,11 @@ const {
   remove,
 } = require('../controllers/workspaceController');
 
+const taskRoutes = require('./tasks');
+
 router.use(auth);
+
+router.use('/:workspaceId/tasks', taskRoutes);
 
 router.get('/', getAll);
 router.get('/:id', getOne);

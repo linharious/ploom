@@ -11,8 +11,10 @@ export default function WorkspaceCard({ workspace, currentUserId, onEdit, onDele
     .map((w) => w[0]?.toUpperCase())
     .join('');
 
+  const router = require('next/router').useRouter();
+
   return (
-    <div className={styles.card}>
+    <div className={styles.card} onClick={() => router.push(`/workspaces/${workspace._id}`)} style={{ cursor: 'pointer' }}>
       <div className={styles.top}>
         <div className={styles.avatar}>{initials}</div>
         <div className={styles.meta}>
@@ -31,10 +33,10 @@ export default function WorkspaceCard({ workspace, currentUserId, onEdit, onDele
         <span className={styles.badge}>{taskCount} task{taskCount !== 1 ? 's' : ''}</span>
         {isOwner && (
           <div className={styles.actions}>
-            <button className="btn-ghost" onClick={() => onEdit(workspace)} style={{ padding: '0.35rem 0.75rem' }}>
+            <button className="btn-ghost" onClick={(e) => { e.stopPropagation(); onEdit(workspace); }} style={{ padding: '0.35rem 0.75rem' }}>
               Edit
             </button>
-            <button className="btn-danger" onClick={() => onDelete(workspace)} style={{ padding: '0.35rem 0.75rem' }}>
+            <button className="btn-danger" onClick={(e) => { e.stopPropagation(); onDelete(workspace); }} style={{ padding: '0.35rem 0.75rem' }}>
               Delete
             </button>
           </div>

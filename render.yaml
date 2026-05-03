@@ -18,6 +18,8 @@ services:
           type: web
           name: ploom-frontend
           property: host
+      - key: GEMINI_API_KEY
+        sync: false       # set manually in Render dashboard
 
   # Frontend — Static Site
   - type: web

@@ -41,6 +41,51 @@ Ploom is a full-stack collaborative platform designed to streamline team workflo
 
 ## 🛠 Installation & Setup
 
-Follow these steps to run Ploom in your local environment:
+### Prerequisites
+- Node.js (v18+)
+- MongoDB (Local or Atlas)
+- Gemini API Key (for AI features)
 
-... to be continued ...
+### 1. Clone & Install
+```bash
+# Clone the repo
+git clone <your-repo-url>
+cd ploom
+
+# Install Backend dependencies
+cd backend
+npm install
+
+# Install Frontend dependencies
+cd ../frontend
+npm install
+```
+
+### 2. Environment Variables
+Create a `.env` file in the `backend` directory:
+```env
+PORT=5000
+MONGODB_URI=your_mongodb_uri
+JWT_SECRET=your_secret_key
+GEMINI_API_KEY=your_gemini_key
+CLIENT_URL=http://localhost:3000
+```
+
+### 3. Run Locally
+```bash
+# Start backend (from /backend)
+npm run dev
+
+# Start frontend (from /frontend)
+npm run dev
+```
+
+---
+
+## ☁️ Deployment
+
+This project is configured for **Render**. 
+1. Push your code to GitHub.
+2. Connect your repository to Render using the provided `render.yaml` file.
+3. Once connected, **any future pushes to GitHub will automatically trigger a new deployment**, rebuilding and updating your app instantly.
+

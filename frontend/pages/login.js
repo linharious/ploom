@@ -70,7 +70,7 @@ export default function Login() {
 
         <p className={styles.switchLink}>
           Don&apos;t have an account?{' '}
-          <Link href="/register">Create one</Link>
+          <Link href="/signup">Create one</Link>
         </p>
       </div>
     </div>
